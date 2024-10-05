@@ -1,0 +1,65 @@
+/* General styles */
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #343a40; /* Dark gray color for headings */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow to cards */
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #495057; /* Medium gray color for card titles */
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.list-group-item {
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-success {
+    font-size: 0.9rem; /* Slightly smaller button text */
+    padding: 5px 10px;
+}
+
+.card-body h5 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Make the layout responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Reduce heading size on smaller screens */
+    }
+
+    .card-title {
+        font-size: 1.1rem; /* Slightly smaller card titles on mobile */
+    }
+
+    .btn {
+        width: 100%; /* Buttons take full width on mobile */
+    }
+
+    .list-group-item {
+        font-size: 0.95rem;
+    }
+}

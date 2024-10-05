@@ -14,7 +14,8 @@ let gameState = {
         transport: 1,
     },
     region: "Reykjavík",
-    passiveIncomeRate: 0 // Passive income rate initialized at 0
+    passiveIncomeRate: 0, // Passive income rate initialized at 0
+    citizenGrowthRate: 10 // Citizens per housing built
 };
 
 // Building income rates (ISK per second for each building)
@@ -29,6 +30,8 @@ const buildingIncomeRates = {
     transport: 25  // 25 ISK per second per transport building
 };
 
+const MAX_POPULATION = 394684; // Maximum population cap for Iceland
+
 // Load the game state from localStorage or use default state
 function loadGameState() {
     const savedState = localStorage.getItem('idleReykjavikTycoon');
@@ -36,6 +39,7 @@ function loadGameState() {
         gameState = JSON.parse(savedState);
     }
     calculatePassiveIncome(); // Calculate passive income when loading
+    calculatePopulation(); // Calculate population when loading
     updateUI();
 }
 
@@ -71,6 +75,9 @@ function upgrade(type) {
         gameState.budget -= costs[type];
         gameState.buildings[type]++;
         calculatePassiveIncome(); // Recalculate passive income after upgrading
+        if (type === 'housing') {
+            calculatePopulation(); // Update population if housing is upgraded
+        }
         updateUI();
         saveGameState(); // Save after each upgrade
     }
@@ -90,6 +97,12 @@ function generatePassiveIncome() {
     gameState.budget += gameState.passiveIncomeRate; // Add passive income to budget
     updateUI(); // Update the UI with the new budget
     saveGameState(); // Auto-save the game state
+}
+
+// Calculate population based on housing
+function calculatePopulation() {
+    let newPopulation = gameState.buildings.housing * gameState.citizenGrowthRate; // Population per housing
+    gameState.population = Math.min(newPopulation, MAX_POPULATION); // Cap population at max
 }
 
 // Select region

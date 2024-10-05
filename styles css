@@ -1,0 +1,113 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+/* Government Naming Section */
+#gov-naming {
+    margin-bottom: 15px;
+}
+
+#govName {
+    padding: 10px;
+    font-size: 1em;
+    width: 60%;
+    max-width: 300px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #008080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #005050;
+}
+
+/* Grid for Buttons */
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+}
+
+/* Budget and Citizen Display */
+.status-info {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+#budget, #citizens {
+    margin: 0;
+}
+
+/* Regions */
+#regions {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#regions button {
+    margin: 5px;
+    width: 120px;
+}
+
+/* Upgrade Status */
+#status {
+    margin-top: 20px;
+}
+
+#status p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+/* Responsive Design for Mobile */
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 1.2em;
+    }
+
+    #govName {
+        width: 80%;
+    }
+
+    .button-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    #regions button {
+        width: 100px;
+    }
+}

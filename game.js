@@ -14,7 +14,19 @@ let gameState = {
         transport: 1,
     },
     region: "Reykjavík",
-    passiveIncome: 50 // ISK earned per second
+    passiveIncomeRate: 0 // Passive income rate initialized at 0
+};
+
+// Building income rates (ISK per second for each building)
+const buildingIncomeRates = {
+    housing: 10,   // 10 ISK per second per housing building
+    jobs: 15,      // 15 ISK per second per jobs building
+    roads: 5,      // 5 ISK per second per road building
+    parks: 8,      // 8 ISK per second per park
+    tourism: 12,   // 12 ISK per second per tourism building
+    hospitals: 20, // 20 ISK per second per hospital
+    schools: 18,   // 18 ISK per second per school
+    transport: 25  // 25 ISK per second per transport building
 };
 
 // Load the game state from localStorage or use default state
@@ -23,6 +35,7 @@ function loadGameState() {
     if (savedState) {
         gameState = JSON.parse(savedState);
     }
+    calculatePassiveIncome(); // Calculate passive income when loading
     updateUI();
 }
 
@@ -57,9 +70,26 @@ function upgrade(type) {
     if (gameState.budget >= costs[type]) {
         gameState.budget -= costs[type];
         gameState.buildings[type]++;
+        calculatePassiveIncome(); // Recalculate passive income after upgrading
         updateUI();
         saveGameState(); // Save after each upgrade
     }
+}
+
+// Calculate passive income based on building levels
+function calculatePassiveIncome() {
+    let totalIncome = 0;
+    for (let building in gameState.buildings) {
+        totalIncome += gameState.buildings[building] * buildingIncomeRates[building];
+    }
+    gameState.passiveIncomeRate = totalIncome; // Set the passive income rate
+}
+
+// Function to generate passive income every second
+function generatePassiveIncome() {
+    gameState.budget += gameState.passiveIncomeRate; // Add passive income to budget
+    updateUI(); // Update the UI with the new budget
+    saveGameState(); // Auto-save the game state
 }
 
 // Select region
@@ -84,17 +114,13 @@ function updateUI() {
     document.getElementById('transport-level').innerText = gameState.buildings.transport;
     document.getElementById('housing-level').innerText = gameState.buildings.housing;
     document.getElementById('jobs-level').innerText = gameState.buildings.jobs;
-}
 
-// Function to generate passive income
-function generatePassiveIncome() {
-    gameState.budget += gameState.passiveIncome; // Add passive income to budget
-    updateUI(); // Update the UI with new budget
-    saveGameState(); // Save the game state after each income tick
+    // Update passive income rate in the UI
+    document.getElementById('passive-income').innerText = `Passive Income: ${gameState.passiveIncomeRate.toLocaleString()} ISK/s`;
 }
 
 // Initialize game on page load
 window.onload = function() {
     loadGameState();  // Load saved game state on launch
-    setInterval(generatePassiveIncome, 1000); // Generate ISK every second
+    setInterval(generatePassiveIncome, 1000); // Generate passive income every second
 };

@@ -1,6 +1,6 @@
 /* General styles */
 body {
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: #f0f4f8; /* Light background for contrast */
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -9,23 +9,31 @@ body {
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #343a40; /* Dark gray color for headings */
+    color: #003d5b; /* Dark blue color for headings (similar to the Icelandic flag blue) */
     text-align: center;
     margin-bottom: 20px;
 }
 
 .card {
+    background-color: #ffffff; /* White background for cards */
+    border: 1px solid #003d5b; /* Border color matching flag blue */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow to cards */
     margin-bottom: 20px;
 }
 
 .card-title {
     font-size: 1.2rem;
-    color: #495057; /* Medium gray color for card titles */
+    color: #e63946; /* Red color for card titles (Icelandic flag red) */
 }
 
 .btn {
     margin-top: 10px;
+    background-color: #003d5b; /* Dark blue for buttons */
+    color: #ffffff; /* White text on buttons */
+}
+
+.btn:hover {
+    background-color: #005c7a; /* Slightly lighter blue on hover */
 }
 
 .list-group-item {
@@ -38,6 +46,12 @@ h1 {
 .btn-success {
     font-size: 0.9rem; /* Slightly smaller button text */
     padding: 5px 10px;
+    background-color: #e63946; /* Red for upgrade buttons */
+    color: #ffffff; /* White text */
+}
+
+.btn-success:hover {
+    background-color: #ff5a60; /* Lighter red on hover */
 }
 
 .card-body h5 {

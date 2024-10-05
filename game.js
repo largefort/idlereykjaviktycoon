@@ -15,7 +15,9 @@ let gameState = {
     },
     region: "Reykjavík",
     passiveIncomeRate: 0, // Passive income rate initialized at 0
-    citizenGrowthRate: 10 // Citizens per housing built
+    citizenGrowthRate: 1, // Citizens per housing building
+    populationGrowthRate: 0, // Rate at which the population increases
+    maxPopulation: 394684 // Max population of Iceland
 };
 
 // Building income rates (ISK per second for each building)
@@ -30,8 +32,6 @@ const buildingIncomeRates = {
     transport: 25  // 25 ISK per second per transport building
 };
 
-const MAX_POPULATION = 394684; // Maximum population cap for Iceland
-
 // Load the game state from localStorage or use default state
 function loadGameState() {
     const savedState = localStorage.getItem('idleReykjavikTycoon');
@@ -39,7 +39,7 @@ function loadGameState() {
         gameState = JSON.parse(savedState);
     }
     calculatePassiveIncome(); // Calculate passive income when loading
-    calculatePopulation(); // Calculate population when loading
+    calculatePopulationGrowth(); // Calculate population growth when loading
     updateUI();
 }
 
@@ -76,7 +76,7 @@ function upgrade(type) {
         gameState.buildings[type]++;
         calculatePassiveIncome(); // Recalculate passive income after upgrading
         if (type === 'housing') {
-            calculatePopulation(); // Update population if housing is upgraded
+            calculatePopulationGrowth(); // Recalculate population growth if housing is upgraded
         }
         updateUI();
         saveGameState(); // Save after each upgrade
@@ -99,10 +99,22 @@ function generatePassiveIncome() {
     saveGameState(); // Auto-save the game state
 }
 
-// Calculate population based on housing
-function calculatePopulation() {
-    let newPopulation = gameState.buildings.housing * gameState.citizenGrowthRate; // Population per housing
-    gameState.population = Math.min(newPopulation, MAX_POPULATION); // Cap population at max
+// Calculate population growth based on housing
+function calculatePopulationGrowth() {
+    let totalHousing = gameState.buildings.housing;
+    gameState.populationGrowthRate = totalHousing * gameState.citizenGrowthRate; // Population growth rate based on housing
+}
+
+// Function to increase population based on housing growth rate
+function growPopulation() {
+    if (gameState.population < gameState.maxPopulation) {
+        gameState.population += gameState.populationGrowthRate; // Increase population
+        if (gameState.population > gameState.maxPopulation) {
+            gameState.population = gameState.maxPopulation; // Cap population at max
+        }
+        updateUI(); // Update UI with the new population count
+        saveGameState(); // Save the updated population
+    }
 }
 
 // Select region
@@ -136,4 +148,5 @@ function updateUI() {
 window.onload = function() {
     loadGameState();  // Load saved game state on launch
     setInterval(generatePassiveIncome, 1000); // Generate passive income every second
+    setInterval(growPopulation, 1000); // Grow population every second
 };

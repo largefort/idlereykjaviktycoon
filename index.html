@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Reykjavík Tycoon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Idle Reykjavík Tycoon</h1>
+
+        <!-- Government Naming -->
+        <div id="gov-naming">
+            <label for="govName">Nafn Stjórnvalda:</label>
+            <input type="text" id="govName" placeholder="Sláðu inn nafn stjórnvalda">
+            <button onclick="setGovernmentName()">Staðfesta</button>
+        </div>
+
+        <h2 id="governmentName">Stjórnvalda Reykjavíkur</h2>
+
+        <div class="status-info">
+            <div id="budget">Fjárhagsstaða: <span id="kr">0</span> ISK</div>
+            <div id="citizens">Íbúar: <span id="population">1000</span></div>
+        </div>
+
+        <!-- Building and upgrades -->
+        <div class="button-grid">
+            <button id="buildHousing" onclick="upgrade('housing')">Byggja Húsnæði (1000 ISK)</button>
+            <button id="buildJobs" onclick="upgrade('jobs')">Stofna Starf (2000 ISK)</button>
+            <button id="buildRoads" onclick="upgrade('roads')">Uppfæra Vegi (500 ISK)</button>
+            <button id="buildParks" onclick="upgrade('parks')">Byggja Almenningsgarða (1000 ISK)</button>
+            <button id="buildTourism" onclick="upgrade('tourism')">Auka Ferðamennsku (1500 ISK)</button>
+            <button id="buildHospitals" onclick="upgrade('hospitals')">Byggja Sjúkrahús (2000 ISK)</button>
+            <button id="buildSchools" onclick="upgrade('schools')">Byggja Skóla (3000 ISK)</button>
+            <button id="buildTransport" onclick="upgrade('transport')">Bæta Við Samgöngum (4000 ISK)</button>
+        </div>
+
+        <!-- Regions -->
+        <h3>Svæði með stjórnvöldum</h3>
+        <div id="regions">
+            <button onclick="selectRegion('Reykjavík')">Reykjavík</button>
+            <button onclick="selectRegion('Garðarbær')">Garðarbær</button>
+            <button onclick="selectRegion('Kópavogur')">Kópavogur</button>
+            <button onclick="selectRegion('Hafnarfjörður')">Hafnarfjörður</button>
+            <button onclick="selectRegion('Akureyri')">Akureyri</button>
+        </div>
+
+        <div id="status">
+            <p>Veggir stig: <span id="roads-level">1</span></p>
+            <p>Almenningsgarðar stig: <span id="parks-level">1</span></p>
+            <p>Ferðamennska stig: <span id="tourism-level">1</span></p>
+            <p>Sjúkrahús stig: <span id="hospitals-level">1</span></p>
+            <p>Skólar stig: <span id="schools-level">1</span></p>
+            <p>Samgöngur stig: <span id="transport-level">1</span></p>
+            <p>Íbúðir stig: <span id="housing-level">1</span></p>
+            <p>Atvinnustig: <span id="jobs-level">1</span></p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

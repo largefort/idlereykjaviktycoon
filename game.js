@@ -13,7 +13,8 @@ let gameState = {
         schools: 1,
         transport: 1,
     },
-    region: "Reykjavík"
+    region: "Reykjavík",
+    passiveIncome: 50 // ISK earned per second
 };
 
 // Load the game state from localStorage or use default state
@@ -85,7 +86,15 @@ function updateUI() {
     document.getElementById('jobs-level').innerText = gameState.buildings.jobs;
 }
 
+// Function to generate passive income
+function generatePassiveIncome() {
+    gameState.budget += gameState.passiveIncome; // Add passive income to budget
+    updateUI(); // Update the UI with new budget
+    saveGameState(); // Save the game state after each income tick
+}
+
 // Initialize game on page load
 window.onload = function() {
     loadGameState();  // Load saved game state on launch
+    setInterval(generatePassiveIncome, 1000); // Generate ISK every second
 };
